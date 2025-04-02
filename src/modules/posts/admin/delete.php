@@ -9,6 +9,6 @@
  * @see https://github.com/nukeviet The NukeViet CMS GitHub project
  */
 
-if (!defined('NV_IS_MOD_SHOPS')) {
+if (!defined('NV_IS_FILE_ADMIN')) {
     exit('Stop!!!');
 }

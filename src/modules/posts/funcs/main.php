@@ -1,4 +1,5 @@
 <?php
+
 /**
  * NukeViet Content Management System
  * @version 5.x
@@ -8,7 +9,6 @@
  * @see https://github.com/nukeviet The NukeViet CMS GitHub project
  */
 
-if (!defined('NV_IS_FILE_ADMIN')) {
+if (!defined('NV_IS_MOD_POSTS')) {
     exit('Stop!!!');
 }
-?>

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * NukeViet Content Management System
  * @version 5.x
@@ -11,4 +12,9 @@
 if (!defined('NV_IS_FILE_ADMIN')) {
     exit('Stop!!!');
 }
-?>
+
+$contents = "Tạo bài viết";
+
+include NV_ROOTDIR . '/includes/header.php';
+echo nv_admin_theme($contents);
+include NV_ROOTDIR . '/includes/footer.php';

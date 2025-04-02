@@ -13,5 +13,5 @@ if (!defined('NV_ADMIN')) {
     exit('Stop!!!');
 }
 
-$submenu['create'] = $nv_Lang->getModule('create');
+$submenu['create_product'] = $nv_Lang->getModule('create_product');
 

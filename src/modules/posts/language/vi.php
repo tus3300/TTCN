@@ -20,5 +20,5 @@ $lang_translator['info'] = '';
 $lang_translator['langtype'] = 'lang_module';
 
 $lang_module['list_product'] = 'Danh sách sản phẩm';
-$lang_module['create'] = 'Tạo bài viết';
+$lang_module['create_product'] = 'thêm sản phẩm mới';
 $lang_module['empty'] = 'dữ liệu trống vui lòng thêm dữ liệu';

@@ -57,49 +57,50 @@
         max-width: 100%;
         height: auto;
         border-radius: 5px;
-        display: {if isset($PRODUCT.imageurl) && $PRODUCT.imageurl != ''}block{else}none{/if};
+        display: {if isset(PRODUCT.imageurl) && PRODUCT.imageurl != ''}block{else}none{/if};
     }
 </style>
 <pre>
-{$PRODUCT|print_r}
+{PRODUCT|print_r}
 </pre>
 <form method="POST" action="" enctype="multipart/form-data" class="form-container">
-    <input type="hidden" name="productid" value="{$PRODUCT.id}">
+    <input type="hidden" name="productid" value="{PRODUCT.id}">
     
     <label for="productname">Tên sản phẩm:</label>
     <input type="text" id="productname" name="productname" value="{PRODUCT.productname}" required>
 
-    <label for="categoryid">Chọn danh mục:</label>
-    <select id="categoryid" name="categoryid" required>
-        <!-- BEGIN: category_option -->
-        <option value="{CATEGORY.id}" {if PRODUCT.categoryid == CATEGORY.id}selected{/if}>{CATEGORY.name}</option>
-        <!-- END: category_option -->
-    </select>
+    <<label for="categoryid">Chọn danh mục:</label>
+<select id="categoryid" name="categoryid" required>
+    <!-- Các option sẽ được lặp qua từ dữ liệu PHP -->
+    <!-- BEGIN: category_options -->
+    <option value="{CATEGORYS.id}">{CATEGORYS.name}</option>
+    <!-- END: category_options -->
+</select>
 
     <label for="description">Mô tả sản phẩm:</label>
-    <textarea id="description" name="description" required>{$PRODUCT.description}</textarea>
+    <textarea id="description" name="description" required>{PRODUCT.description}</textarea>
 
     <label for="detaileddescription">Mô tả chi tiết:</label>
-    <textarea id="detaileddescription" name="detaileddescription" required>{$PRODUCT.detaileddescription}</textarea>
+    <textarea id="detaileddescription" name="detaileddescription" required>{PRODUCT.detaileddescription}</textarea>
 
     <label for="imageurl">Hình ảnh sản phẩm:</label>
     <input type="file" id="imageurl" name="imageurl" accept="image/*" onchange="previewImage(event)">
     
     <!-- Khu vực hiển thị ảnh xem trước -->
     <div class="preview-container">
-        <img id="imagePreview" src="{$PRODUCT.imageurl}" alt="Xem trước ảnh">
+        <img id="imagePreview" src="{NV_BASE_SITEURL}{PRODUCT.imageurl}" alt="Xem trước ảnh">
     </div>
 
     <label for="quantity">Số lượng:</label>
-    <input type="number" id="quantity" name="quantity" value="{$PRODUCT.quantity}" required>
+    <input type="number" id="quantity" name="quantity" value="{PRODUCT.quantity}" required>
 
     <label for="price">Giá:</label>
-    <input type="number" id="price" name="price" value="{$PRODUCT.price}" required>
+    <input type="number" id="price" name="price" value="{PRODUCT.price}" required>
 
     <label for="status">Trạng thái:</label>
     <select id="status" name="status" required>
-        <option value="1" {if $PRODUCT.status == 1}selected{/if}>Kích hoạt</option>
-        <option value="0" {if $PRODUCT.status == 0}selected{/if}>Vô hiệu hóa</option>
+        <option value="1" {if PRODUCT.status == 1}selected{/if}>Kích hoạt</option>
+        <option value="0" {if PRODUCT.status == 0}selected{/if}>Vô hiệu hóa</option>
     </select>
 
     <button type="submit">Cập nhật</button>
@@ -119,6 +120,20 @@
                 preview.style.display = "block";
             };
             reader.readAsDataURL(file);
+        }
+    }
+    // Giá trị categoryid của sản phẩm từ PHP
+    var productCategoryId = {PRODUCT.categoryid};
+
+    // Lấy select box
+    var selectBox = document.getElementById("categoryid");
+
+    // Duyệt qua tất cả các option trong select
+    for (var i = 0; i < selectBox.options.length; i++) {
+        // Nếu giá trị của option trùng với categoryid của sản phẩm, set nó là mặc định
+        if (selectBox.options[i].value == productCategoryId) {
+            selectBox.options[i].selected = true;
+            break; // Thoát khỏi vòng lặp sau khi đã tìm thấy option phù hợp
         }
     }
 </script>

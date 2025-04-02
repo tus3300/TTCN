@@ -29,7 +29,8 @@ $stmt = $db->prepare($sql);
 $stmt->bindParam(':productid', $productid, PDO::PARAM_INT);
 $stmt->execute();
 $product = $stmt->fetch();
-
+$sql_categories = 'SELECT categoryid, categoryname FROM ' . NV_PREFIXLANG . '_' . $module_data . '_categories';
+$list_categories = $db->query($sql_categories)->fetchAll();
 if (!$product) {
     header('Location: index.php?' . NV_NAME_VARIABLE . '=' . $module_name . '&' . NV_OP_VARIABLE . '=main');
     exit();
@@ -38,6 +39,7 @@ if (!$product) {
 // Nếu có dữ liệu gửi đi (POST), xử lý cập nhật
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $productname = isset($_POST['productname']) ? trim($_POST['productname']) : '';
+    $category_id = $_POST['categoryid'];
     $price = isset($_POST['price']) ? floatval($_POST['price']) : 0;
     $quantity = isset($_POST['quantity']) ? intval($_POST['quantity']) : 0;
     $status = isset($_POST['status']) ? intval($_POST['status']) : 0;
@@ -51,7 +53,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 SET productname = :productname, price = :price, quantity = :quantity, status = :status, 
                     description = :description, detaileddescription = :detaileddescription
                 WHERE productid = :productid';
-        $stmt = $db->prepare($sql);
+        $stmt = $db->prepare(statement: $sql);
         $stmt->bindParam(':productname', $productname, PDO::PARAM_STR);
         $stmt->bindParam(':price', $price, PDO::PARAM_STR);
         $stmt->bindParam(':quantity', $quantity, PDO::PARAM_INT);
@@ -69,12 +71,29 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 // Gán dữ liệu sản phẩm vào giao diện
+foreach ($list_categories as $category) {
+    $xtpl->assign('CATEGORYS', [
+        'id' => $category['categoryid'],
+        'name' => $category['categoryname']
+    ]);
+    var_dump($category["categoryid"]);
+    $xtpl->parse('main.category_options');
+}
 $xtpl->assign('PRODUCT', $product);
 $xtpl->parse('main');
+
+
 $contents = $xtpl->text('main');
-echo '<pre>';
-print_r($product);
-echo '</pre>';
+
+// var_dump($list_categories);
+
+// // echo '<pre>';
+// // print_r($product);
+// // echo '</pre>';
+// echo '<pre>';
+// print_r($list_categories);
+// echo '</pre>';
+
 include NV_ROOTDIR . '/includes/header.php';
 echo nv_admin_theme($contents);
 include NV_ROOTDIR . '/includes/footer.php';

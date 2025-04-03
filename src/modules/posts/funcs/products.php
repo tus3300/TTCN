@@ -1,5 +1,5 @@
 <?php
-if (!defined('NV_IS_MOD_POST')) {
+if (!defined('NV_IS_MOD_POSTS')) { // Thay NV_IS_MOD_POST thành NV_IS_MOD_POSTS
     exit('Stop!!!');
 }
 

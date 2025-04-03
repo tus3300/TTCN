@@ -69,7 +69,7 @@
     <label for="productname">Tên sản phẩm:</label>
     <input type="text" id="productname" name="productname" value="{PRODUCT.productname}" required>
 
-    <<label for="categoryid">Chọn danh mục:</label>
+    <label for="categoryid">Chọn danh mục:</label>
 <select id="categoryid" name="categoryid" required>
     <!-- Các option sẽ được lặp qua từ dữ liệu PHP -->
     <!-- BEGIN: category_options -->

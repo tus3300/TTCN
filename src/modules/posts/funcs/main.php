@@ -12,3 +12,4 @@
 if (!defined('NV_IS_MOD_POSTS')) {
     exit('Stop!!!');
 }
+$module_version['modfuncs'] = 'main, detail, products, product_detail';

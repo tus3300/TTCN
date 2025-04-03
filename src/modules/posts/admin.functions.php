@@ -17,7 +17,8 @@ $allow_func = [
     'main',
     'create_product',
     'edit_product',
-    'delete_product'
+    'delete_product',
+    'revenue'
 ];
 
 define('NV_IS_FILE_ADMIN', true);
